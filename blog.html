@@ -666,29 +666,35 @@
      <script>
 $(document).ready(function() {
 
-    var available= ["04/13/2020", "04/14/2020", "04/15/2020", "04/16/2020", "04/17/2020", "04/18/2020"];
+
+    var available= ["04/22/2020", "04/23/2020", "04/24/2020", "04/25/2020", "04/26/2020", "04/27/2020", "04/28/2020", "04/29/2020", "04/30/2020"];
     var partialAvailable= [{
 		  
-		    	'date': '04/19/2020',
+		    	'date': '05/19/2020',
 		    	'hour' : 'eight,nine'
 		    },
 		    {
-		    	'date': '04/20/2020',
+		    	'date': '05/20/2020',
 		    	'hour' : 'twelve,thirteen'
 		    },
 		    {
-		    	'date': '04/21/2020',
+		    	'date': '05/21/2020',
 		    	'hour' : 'twenty,twentythree'
 		    }
 		];
 		       
-    var reserved= ["04/22/2020", "04/23/2020"];
-
-	$("#datepicker").datepicker({ 
+    var reserved= ["05/22/2020", "05/23/2020"];
+    var dateToday = new Date();
+	var dates = $("#datepicker").datepicker({ 
 		beforeShowDay: highLight,
 		showOtherMonths: true,
     	selectOtherMonths: true,
+        minDate: dateToday,
 		onSelect: function (dateString) {
+            var option = this.id == "from" ? "minDate" : "maxDate",
+                instance = $(this).data("datepicker"),
+                date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, dateString, instance.settings);
+            dates.not(this).datepicker("option", option, date);
 
             //string to date
             var date = new Date(dateString);
